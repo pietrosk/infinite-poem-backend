@@ -1,3 +1,4 @@
+using FunctionApp1.TableModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
@@ -13,11 +14,6 @@ namespace FunctionApp1
 {
     public static class Function2
     {
-        public class VerseEntity : TableEntity
-        {
-            public string Text { get; set; }
-        }
-
         [FunctionName("Function2")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
