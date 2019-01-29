@@ -1,0 +1,64 @@
+{
+	"info": {
+		"_postman_id": "5cbf1643-cab4-4fed-9b94-50b9ee5c58c6",
+		"name": "InfinitePoem",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:7071/api/Function2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:7071/api/verses/en",
+					"host": [
+						"localhost"
+					],
+					"port": "7071",
+					"path": [
+						"api",
+						"verses",
+						"en"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:7071/api/verses/en",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\ttext: \"This is my first verse of poem\"\n}"
+				},
+				"url": {
+					"raw": "localhost:7071/api/verses/en",
+					"host": [
+						"localhost"
+					],
+					"port": "7071",
+					"path": [
+						"api",
+						"verses",
+						"en"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
