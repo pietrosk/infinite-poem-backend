@@ -1,0 +1,6 @@
+﻿{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "DefaultEndpointsProtocol=https;AccountName=infinitepoemv1develop;AccountKey=2pvIQ6ieiiO8jc8exAe46kZPmi050nW4LJC8OPJ8Etq4HgTmk5lHdA9G09kffJwL4PylXSp8olkcBUQZzKeyfw==;EndpointSuffix=core.windows.net"
+  }
+}
