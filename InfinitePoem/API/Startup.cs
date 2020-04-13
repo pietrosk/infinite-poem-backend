@@ -1,15 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using InfinitePoem.Business;
+using InfinitePoem.Business.Api;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.Azure.Cosmos;
+using Microsoft.Azure.Cosmos.Fluent;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
 
 namespace API
 {
@@ -32,11 +30,20 @@ namespace API
                 options.AddPolicy(AllowAllOriginsPolicy,
                 builder =>
                 {
-                    builder.WithOrigins("http://localhost:3000");
+                    //builder.WithOrigins("http://localhost:3000", "https://localhost:3000");
+                    //builder.WithMethods("POST", "GET", "OPTIONS");
+                    //builder.
+                    //builder.WithHeaders("Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+                    builder//.AllowAnyOrigin()
+                    .WithOrigins("http://localhost:3000", "https://localhost:3000")
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
                 });
             });
 
             services.AddControllers();
+
+            services.AddSingleton<ICosmosDBService>(InitializeCosmosClientInstanceAsync(Configuration.GetSection("CosmosDb")).GetAwaiter().GetResult());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,6 +66,24 @@ namespace API
             {
                 endpoints.MapControllers();
             });
+        }
+
+        private static async Task<CosmosDBService> InitializeCosmosClientInstanceAsync(IConfigurationSection configurationSection)
+        {
+            string databaseName = configurationSection.GetSection("DatabaseName").Value;
+            string containerName = configurationSection.GetSection("ContainerName").Value;
+            string account = configurationSection.GetSection("Account").Value;
+            string key = configurationSection.GetSection("Key").Value;
+            var connectionString = configurationSection.GetSection("ConnectionString").Value;
+            CosmosClientBuilder clientBuilder = new CosmosClientBuilder(connectionString);
+            CosmosClient client = clientBuilder
+                                .WithConnectionModeDirect()
+                                .Build();
+            CosmosDBService cosmosDbService = new CosmosDBService(client, databaseName, containerName);
+            DatabaseResponse database = await client.CreateDatabaseIfNotExistsAsync(databaseName);
+            await database.Database.CreateContainerIfNotExistsAsync(containerName, "/_pk");
+
+            return cosmosDbService;
         }
     }
 }

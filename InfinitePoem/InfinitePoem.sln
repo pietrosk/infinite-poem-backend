@@ -4,6 +4,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.29926.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "API\API.csproj", "{66D03982-87D5-4AF6-894C-7F7399311458}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6C863196-74ED-43F6-AE9E-E1EBE2377365} = {6C863196-74ED-43F6-AE9E-E1EBE2377365}
+		{DF61F6E8-6DE3-4319-89F3-ED368A1A816C} = {DF61F6E8-6DE3-4319-89F3-ED368A1A816C}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfinitePoem.Business", "InfinitePoem.Business\InfinitePoem.Business.csproj", "{DF61F6E8-6DE3-4319-89F3-ED368A1A816C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6C863196-74ED-43F6-AE9E-E1EBE2377365} = {6C863196-74ED-43F6-AE9E-E1EBE2377365}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfinitePoem.Business.Api", "InfinitePoem.Business.Api\InfinitePoem.Business.Api.csproj", "{6C863196-74ED-43F6-AE9E-E1EBE2377365}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfinitePoem.DAO", "InfinitePoem.DAO\InfinitePoem.DAO.csproj", "{04089F1A-1F72-47D2-854C-F3ABDE6931D1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +28,18 @@ Global
 		{66D03982-87D5-4AF6-894C-7F7399311458}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66D03982-87D5-4AF6-894C-7F7399311458}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66D03982-87D5-4AF6-894C-7F7399311458}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF61F6E8-6DE3-4319-89F3-ED368A1A816C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF61F6E8-6DE3-4319-89F3-ED368A1A816C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF61F6E8-6DE3-4319-89F3-ED368A1A816C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF61F6E8-6DE3-4319-89F3-ED368A1A816C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C863196-74ED-43F6-AE9E-E1EBE2377365}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C863196-74ED-43F6-AE9E-E1EBE2377365}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C863196-74ED-43F6-AE9E-E1EBE2377365}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C863196-74ED-43F6-AE9E-E1EBE2377365}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04089F1A-1F72-47D2-854C-F3ABDE6931D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04089F1A-1F72-47D2-854C-F3ABDE6931D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04089F1A-1F72-47D2-854C-F3ABDE6931D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04089F1A-1F72-47D2-854C-F3ABDE6931D1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
