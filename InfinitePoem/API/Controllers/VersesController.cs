@@ -23,17 +23,9 @@ namespace API.Controllers
         [HttpGet("{language}")]
         public async Task<ActionResult<IList<ApiVerseResult>>> GetAll([FromRoute] string language)
         {
-            // var result = new List<ApiVerseResult> { new ApiVerseResult { Text = "test" } };
-
             var verses = await _cosmosDbService.GetItemsAsync(language);
 
             return new OkObjectResult(verses.Select(MapToApi));
-        }
-
-        [HttpPost]
-        public ActionResult Create()
-        {
-            return new OkResult();
         }
 
         [HttpPost("{language}")]
