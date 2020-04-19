@@ -54,6 +54,8 @@ namespace InfinitePoem.Business
                     PartitionKey = new PartitionKey(GetPartitionKey(language)),
                 });
 
+            
+
             var results = new List<Verse>();
             while (query.HasMoreResults)
             {

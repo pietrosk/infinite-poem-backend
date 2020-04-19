@@ -30,11 +30,7 @@ namespace API
                 options.AddPolicy(AllowAllOriginsPolicy,
                 builder =>
                 {
-                    //builder.WithOrigins("http://localhost:3000", "https://localhost:3000");
-                    //builder.WithMethods("POST", "GET", "OPTIONS");
-                    //builder.
-                    //builder.WithHeaders("Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
-                    builder//.AllowAnyOrigin()
+                    builder
                     .WithOrigins("http://localhost:3000", "https://localhost:3000")
                     .AllowAnyMethod()
                     .AllowAnyHeader();
@@ -43,7 +39,12 @@ namespace API
 
             services.AddControllers();
 
-            services.AddSingleton<ICosmosDBService>(InitializeCosmosClientInstanceAsync(Configuration.GetSection("CosmosDb")).GetAwaiter().GetResult());
+            services.AddSingleton<ICosmosDBService>(CosmosDBInitializer.InitializeCosmosClientInstanceAsync(new VersesDBConfiguration
+            {
+                ConnectionString = Configuration.GetSection("CosmosDB").GetSection("ConnectionString").Value,
+                DatabaseName = Configuration.GetSection("CosmosDB").GetSection("DatabaseName").Value,
+                ContainerName = Configuration.GetSection("CosmosDB").GetSection("ContainerName").Value,
+            }).GetAwaiter().GetResult());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -68,22 +69,22 @@ namespace API
             });
         }
 
-        private static async Task<CosmosDBService> InitializeCosmosClientInstanceAsync(IConfigurationSection configurationSection)
-        {
-            string databaseName = configurationSection.GetSection("DatabaseName").Value;
-            string containerName = configurationSection.GetSection("ContainerName").Value;
-            string account = configurationSection.GetSection("Account").Value;
-            string key = configurationSection.GetSection("Key").Value;
-            var connectionString = configurationSection.GetSection("ConnectionString").Value;
-            CosmosClientBuilder clientBuilder = new CosmosClientBuilder(connectionString);
-            CosmosClient client = clientBuilder
-                                .WithConnectionModeDirect()
-                                .Build();
-            CosmosDBService cosmosDbService = new CosmosDBService(client, databaseName, containerName);
-            DatabaseResponse database = await client.CreateDatabaseIfNotExistsAsync(databaseName);
-            await database.Database.CreateContainerIfNotExistsAsync(containerName, "/_pk");
+        //private static async Task<CosmosDBService> InitializeCosmosClientInstanceAsync(IConfigurationSection configurationSection)
+        //{
+        //    string databaseName = configurationSection.GetSection("DatabaseName").Value;
+        //    string containerName = configurationSection.GetSection("ContainerName").Value;
+        //    string account = configurationSection.GetSection("Account").Value;
+        //    string key = configurationSection.GetSection("Key").Value;
+        //    var connectionString = configurationSection.GetSection("ConnectionString").Value;
+        //    CosmosClientBuilder clientBuilder = new CosmosClientBuilder(connectionString);
+        //    CosmosClient client = clientBuilder
+        //                        .WithConnectionModeDirect()
+        //                        .Build();
+        //    CosmosDBService cosmosDbService = new CosmosDBService(client, databaseName, containerName);
+        //    DatabaseResponse database = await client.CreateDatabaseIfNotExistsAsync(databaseName);
+        //    await database.Database.CreateContainerIfNotExistsAsync(containerName, "/_pk");
 
-            return cosmosDbService;
-        }
+        //    return cosmosDbService;
+        //}
     }
 }

@@ -12,5 +12,8 @@ namespace InfinitePoem.DAO
 
         [JsonProperty(PropertyName = "text")]
         public string Text { get; set; }
+
+        [JsonProperty(PropertyName = "createdAt")]
+        public string CreatedAt { get; set; }
     }
 }
